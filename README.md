@@ -33,6 +33,8 @@ The projects is the root of my code bases. Dig into it!
 	Oozie, Hadoop, Scala, Java
 
 4. Algorithms
+
   **Alrogirhms**
+
    graph, tree, hash, sort, etc.
 
