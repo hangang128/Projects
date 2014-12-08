@@ -17,7 +17,7 @@
 
 The projects is the root of my code bases. Dig into it!
 
-  ** Content **
+  **Content**
 
 1. Linux Shell
 
