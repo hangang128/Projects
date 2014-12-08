@@ -1,5 +1,5 @@
 # My Projects #
-## some interesting codes which I used extensively ##
+## some interesting code I used extensively ##
 
 ---
 - Release version: 1.0
@@ -21,7 +21,7 @@ The projects is the root of my code bases. Dig into it!
 
 1. Linux Shell
 
-    shell *scripts* used for login, shortcut, aliases, etc.
+    Shell *scripts* used for login, shortcut, aliases, etc.
 
 2. Language pieces
 
@@ -34,7 +34,5 @@ The projects is the root of my code bases. Dig into it!
 
 4. Algorithms
 
-  **Alrogirhms**
-
-   graph, tree, hash, sort, etc.
+   Graph, tree, hash, sort, etc.
 
