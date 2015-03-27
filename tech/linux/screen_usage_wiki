@@ -1,0 +1,41 @@
+Using GNU Screen to Access Clusters
+Skip to end of metadata
+Created and last modified by Paul Han 2 minutes ago Go to start of metadata
+With following screen profile - screen_rc_screen532, we can open ssh sessions to multiple servers with one shot:
+# start screen sessions with command line: screen -c myscreenrc
+# assuming ssh command line is: ssh -qi ~/bdacdh.pem ip-10-222-0-248
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %0c "
+# change bindings to C a " " to show list of windows
+bind ' ' windowlist -b
+# don't display the copyright page
+startup_message off
+# increase scrollback buffer size
+defscrollback 10000
+ 
+# create windows
+screen -t "243 KDC"  bash -c "ssh -qi ~/bdacdh.pem   host1"
+...
+
+Usage
+Ssh to the first host in cluster, such as 
+ssh -i ~/bdachd.pem  root@host...
+If screen not installed, do 
+yum install screen
+Create the screenrc file screen_rc_cdh532 with the content above 
+Start screen sessions to all hosts in that cluster
+screen -R -c screen_rc_cdh532
+List of frequent used commands
+screen -R -c screen_rc_cdh532 - create or resume screen session with profile - screen_rc_cdh532
+CTRL-A d - detach from screen session
+CTRL-A 0, 1,...,n - switch to the Nth window
+CTRL-A \ - kill all wiondows and exit screen
+CTRL-A Esc , or [  - enter copy mode to be able to scroll back command output
+For more, google "screen tutorial" (smile)
+ 
+FAQ
+Q: In bash, CTRL-A goes to the beginning of the line, how to do it in screen?
+A: Control-A (release and then) A
+Quick Ref
+http://aperiodic.net/screen/quick_reference
