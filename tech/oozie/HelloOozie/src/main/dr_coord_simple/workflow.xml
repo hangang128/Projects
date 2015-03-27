@@ -1,0 +1,60 @@
+<workflow-app xmlns="uri:oozie:workflow:0.4" name="hello-oozie-distcp-wf">
+  <global>
+    <job-tracker>${jobTracker}</job-tracker>
+    <name-node>${nameNode}</name-node>
+    <configuration>
+      <property>
+        <name>mapred.job.queue.name</name>
+        <value>${queueName}</value>
+      </property>
+      <property>
+        <name>oozie.launcher.mapreduce.job.hdfs-servers</name>
+        <value>${distcpHdfsServers}</value>
+      </property>
+    </configuration>
+  </global>
+  <start to="shell-node-pipe" />
+  <action name="shell-node-pipe">
+    <shell xmlns="uri:oozie:shell-action:0.2">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+      <exec>bash</exec>
+      <argument>-c</argument>
+      <argument>/bin/echo my test | grep my</argument>
+      <capture-output />
+    </shell>
+    <ok to="end" />
+    <error to="fail" />
+  </action>
+
+  <action name="shell-node-ls">
+    <shell xmlns="uri:oozie:shell-action:0.2">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+      <exec>ls</exec>
+      <argument>.</argument>
+      <capture-output />
+    </shell>
+    <ok to="end" />
+    <error to="fail" />
+  </action>
+
+  <action name="distcp-dr">
+    <distcp xmlns="uri:oozie:distcp-action:0.2">
+      <arg>-Dmapreduce.output.fileoutputformat.compress=false</arg>
+      <arg>-Dmapreduce.map.output.compress=false</arg>
+      <arg>-update</arg>
+      <arg>-delete</arg>
+      <arg>-prbugp</arg>
+      <arg>${srcPath}</arg>
+      <arg>${destPath}</arg>
+    </distcp>
+    <ok to="end" />
+    <error to="fail" />
+  </action>
+  <kill name="fail">
+    <message>Workflow failed, error
+      message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+  </kill>
+  <end name="end" />
+</workflow-app>
